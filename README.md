@@ -28,7 +28,9 @@ swiff-data-analysis/
 ```
 
 ## How to Run
-`python swiff_data_analysis.py`
+```bash
+python swiff_data_analysis.py
+```
 
 ## Skills Demonstrated
 * Python scripting
