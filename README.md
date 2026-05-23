@@ -25,3 +25,20 @@ swiff-data-analysis/
 ├── swiff_data_analysis.py
 ├── requirements.txt
 └── README.md
+```
+
+## How to Run
+`python swiff_data_analysis.py`
+
+## Skills Demonstrated
+* Python scripting
+* CSV parsing
+* Data cleaning
+* Frequency analysis
+* File handling
+
+## Future Improvements
+* Add matplotlib visualizations
+* Export results as CSV
+* Interactive filtering
+* Geographic visualization of submissions
