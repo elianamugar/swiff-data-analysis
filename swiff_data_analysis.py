@@ -1,25 +1,35 @@
 import csv
+from collections import Counter
+from pathlib import Path
 
-with open("/Users/EMWork/Downloads/Grid_view.csv", mode='r') as file:
-    csvFile = csv.reader(file)
-    countries = []
-    for line in csvFile:
-        countries.append(line[1])
+DATA_PATH = Path("data/swiff_2023_submissions.csv")
+OUTPUT_PATH = Path("outputs/country_submission_counts.txt")
 
-new_countries = []
-for i in range(len(countries)):
-    if countries[i] not in new_countries:
-        new_countries.append(countries[i])
 
-country_stats = []
+def count_submissions_by_country(csv_path):
+    with open(csv_path, mode="r", encoding="utf-8", newline="") as file:
+        reader = csv.reader(file)
 
-for country in new_countries:
-    total_of_submissions = 0
-    for i in range(len(countries)):
-        if countries[i] == country:
-            total_of_submissions += 1
-    country_stats.append(total_of_submissions)
+        countries = [
+            row[1].strip()
+            for row in reader
+            if len(row) > 1 and row[1].strip()
+        ]
 
-with open('SWIFF_data_analysis.txt', 'w') as f:
-    for i in range(len(new_countries)):
-        f.write(new_countries[i] + ": " + str(country_stats[i]) + "\n")
+    return Counter(countries)
+
+
+def main():
+    OUTPUT_PATH.parent.mkdir(exist_ok=True)
+
+    country_counts = count_submissions_by_country(DATA_PATH)
+
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as file:
+        for country, count in country_counts.most_common():
+            file.write(f"{country}: {count}\n")
+
+    print(f"Saved results to {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    main()
